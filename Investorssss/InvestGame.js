@@ -36,11 +36,11 @@ pinch();
 
 // Functions
 
-function gameStart() {
+/*function gameStart() {
     while(gameActive) {
         
     }
-}
+}*/
 
 function calculateValue() {
     stockValue = defaultStockAvg;
@@ -65,8 +65,10 @@ function pinch() {
     switch(pinchType) {
         case 0:
             upDemo();
+            console.log(upPinch)
             break;
         case 1:
+            downDemo();
             console.log(downPinch)
             break;
         case 2:
@@ -93,7 +95,20 @@ function upDemo() {
 }
 
 function downDemo() {
-    
+    lowerLimit = stockValue - Math.floor(Math.random() * 1000) - 500
+    variance = Math.floor(Math.random() * 100 * volatility)
+    upperLimit = stockValue + variance;
+
+    console.log(upperLimit)
+    console.log(stockValue)
+
+    while(stockValue > lowerLimit) {
+        variance = Math.floor(Math.random() * 40 * volatility)
+        stockValue = stockValue - variance;
+
+        console.log(lowerLimit)
+        console.log(stockValue)
+    }
 }
 
 function middleDemo() {
