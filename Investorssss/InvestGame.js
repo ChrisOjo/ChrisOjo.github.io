@@ -64,15 +64,16 @@ function pinch() {
     
     switch(pinchType) {
         case 0:
-            upDemo();
             console.log(upPinch)
+            upDemo();
             break;
         case 1:
-            downDemo();
             console.log(downPinch)
+            downDemo();
             break;
         case 2:
             console.log(middlePinch)
+            middleDemo();
             break;
     }
 }
@@ -112,5 +113,15 @@ function downDemo() {
 }
 
 function middleDemo() {
-    
+    upperLimit = stockValue + Math.floor(Math.random() * 1000) + 500
+    lowerLimit = stockValue - Math.floor(Math.random() * 1000) - 500
+
+    while(upperLimit > lowerLimit) {
+        variance = Math.floor(Math.random() * 30 * volatility)
+        upperLimit = upperLimit - variance;
+        lowerLimit = lowerLimit + variance;
+
+        console.log(upperLimit)
+        console.log(lowerLimit)
+    }
 }
