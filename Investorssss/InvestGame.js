@@ -1,3 +1,13 @@
+function im(){
+    document.getElementById('box').style.display='none';
+   // document.getElementById('but').style.display='none';
+    document.getElementById('canvas').style.display= 'inline';
+    document.getElementById('canvas').style.display= 'height: 1000px';
+    game();
+}
+
+
+function game(){
 // Stock Variables
 let pinchType;
 let upPinch = "upPinch";
@@ -91,7 +101,7 @@ for(let i = 0; i < 10 ; i++) {
     lineOne();
 }
     
-document.getElementById("Invested Money").innerHTML;
+console.log("Invested Money");
 console.log(moneyInvested);
 console.log("Money in Da Bank");
 console.log(piggyBank);
@@ -120,9 +130,23 @@ document.body.onkeyup = function(space) {
             if(moneyInvested >= 15) {
                 moneyInvested -= 15;
             }
+            else
+            {
+                moneyInvested = 0;
+            }
 
             if(piggyBank >= 11) {
                 piggyBank = Math.floor((piggyBank * 0.90) - 10);
+            }
+            else
+            {
+                piggyBank = 0;
+            }
+
+            if(moneyInvested == 0 && piggyBank == 0)
+            {
+                document.getElementById('canvas').style.display= 'none';
+                document.getElementById('over').style.display= 'block';
             }
 
             console.log("Invested Money");
@@ -130,6 +154,7 @@ document.body.onkeyup = function(space) {
             console.log("Money in Da Bank");
             console.log(piggyBank);
         }
+        
     }
 
     if(space.keyCode == 73 && piggyBank > 0) {
@@ -140,6 +165,8 @@ document.body.onkeyup = function(space) {
         console.log(moneyInvested);
         console.log("piggyBank");
         console.log(piggyBank);
+      
+
     }
 
     if(space.keyCode == 87 && moneyInvested > 0) {
@@ -150,11 +177,26 @@ document.body.onkeyup = function(space) {
         console.log(moneyInvested);
         console.log("piggyBank");
         console.log(piggyBank);
+        
     }
+clear();
+   score(piggyBank,moneyInvested);
+   
 }
 
 // Functions
+function score(P,I){
+    ctx.fillStyle= 'black';
+    ctx.font = "30px Georgia";
+    ctx.fillText("Piggybank: "+P, 400,40);
 
+    //ctx.font = "30px Georgia";
+    ctx.fillText("Investments: "+I, 800,40);
+}
+function clear(){
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,canvas.width,77);
+}
 /* Runs the next step of code */
 function step() {
     gameStep = Math.floor(Math.random() * 5);
@@ -420,4 +462,6 @@ function lineTen() {
         y10 = y11;
         y11 = currentStockValue / 6.25;
     }
+}
+
 }

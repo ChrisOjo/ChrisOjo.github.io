@@ -1,0 +1,35 @@
+#box {
+    display: grid;
+    height: 100%;
+    position: relative;
+  }
+  
+  #box img {
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+  }
+  
+  #box #but {
+    position: absolute;
+    top: 18%;
+    left: 87%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgb(255, 0, 0);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  #box #but:hover {
+    background-color: rgb(26, 150, 26);
+  }
+
+  
+
+  
