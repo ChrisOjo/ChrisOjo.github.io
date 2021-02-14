@@ -91,7 +91,7 @@ for(let i = 0; i < 10 ; i++) {
     lineOne();
 }
     
-console.log("Invested Money");
+document.getElementById("Invested Money").innerHTML;
 console.log(moneyInvested);
 console.log("Money in Da Bank");
 console.log(piggyBank);
