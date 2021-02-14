@@ -1,8 +1,8 @@
 // User inputs
 let pinchType;
-let upPinch = 1;
-let downPinch = 2;
-let middlePinch = 3;
+let upPinch = "upPinch";
+let downPinch = "downPinch";
+let middlePinch = "middlePinch";
 
 let upperLimit;
 let lowerLimit;
@@ -23,30 +23,49 @@ let lowSlant = 0.25;
 let medSlant = 0.5;
 let flatSlant = 0;
 
+let gameStep;
+
 let variance;
 
 let gameActive = true;
 
 // Main Method
-calculateValue();
 newAvg();
-calculateValue();
-pinch();
 
+/* Runs Code when Spacebar is pressed */
+document.body.onkeyup = function(press) {
+    if(press.code == "Space") {
+      step();
+    }
+  }
 
 // Functions
 
-/*function gameStart() {
-    while(gameActive) {
-        
+/* Runs the next step of code */
+function step() {
+    gameStep = Math.floor(Math.random() * 6);
+
+    switch(gameStep) {
+        case 0:
+        case 1:
+            newAvg();
+            break;
+        case 2:
+        case 3:
+        case 4:
+            calculateValue();
+            break;
+        case 5:
+            pinch();
+            break;
     }
-}*/
+}
 
 function calculateValue() {
     stockValue = defaultStockAvg;
+    console.log("Default Variance");
     
     variance = Math.floor(Math.random() * 100 * volatility)
-    console.log(stockValue);
     console.log(stockValue + variance);
     console.log(stockValue);
     
@@ -57,6 +76,8 @@ function calculateValue() {
 
 function newAvg() {
     defaultStockAvg += Math.floor(Math.random() * 100) - 50
+    console.log("Set Stock Value")
+    console.log(defaultStockAvg);
 }
 
 function pinch() {
