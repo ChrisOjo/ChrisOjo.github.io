@@ -25,7 +25,7 @@ let flatSlant = 0;
 
 let gameStep;
 
-let variance;
+let variance = 0;
 
 let gameActive = true;
 
@@ -35,7 +35,18 @@ newAvg();
 /* Runs Code when Spacebar is pressed */
 document.body.onkeyup = function(press) {
     if(press.code == "Space") {
-      step();
+        for(let i = 0; i < 3; i++) {
+            step();
+
+            if(stockValue > defaultStockMax || defaultStockAvg > defaultStockMax) {
+                console.log("Game Over");
+                break;
+            }
+            if(stockValue < defaultStockMin || defaultStockAvg < defaultStockMin) {
+                console.log("Game Over");
+                break;
+            }
+        }
     }
   }
 
@@ -43,19 +54,18 @@ document.body.onkeyup = function(press) {
 
 /* Runs the next step of code */
 function step() {
-    gameStep = Math.floor(Math.random() * 6);
+    gameStep = Math.floor(Math.random() * 5);
 
     switch(gameStep) {
         case 0:
-        case 1:
             newAvg();
             break;
+        case 1:
         case 2:
         case 3:
-        case 4:
             calculateValue();
             break;
-        case 5:
+        case 4:
             pinch();
             break;
     }
