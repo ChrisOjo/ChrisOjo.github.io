@@ -10,11 +10,15 @@ let lowerLimit;
 let defaultMoney = 1000;
 let defaultInvest = 100;
 
+let piggyBank = defaultMoney;
+let moneyInvested = 0;
+
 let defaultStockMax = 5000;
 let defaultStockMin = 1;
 let defaultStockAvg = 1700;
 
 let stockValue = defaultStockAvg;
+let initialStockValue;
 
 let volatility = 10;
 
@@ -33,9 +37,12 @@ let gameActive = true;
 newAvg();
 
 /* Runs Code when Spacebar is pressed */
-document.body.onkeyup = function(press) {
-    if(press.code == "Space") {
-        for(let i = 0; i < 3; i++) {
+document.body.onkeyup = function(space) {
+    if(space.keyCode == 32) {
+        for(let i = 0; i < 1; i++) {
+            
+            initialStockValue = stockValue;
+
             step();
 
             if(stockValue > defaultStockMax || defaultStockAvg > defaultStockMax) {
@@ -46,9 +53,34 @@ document.body.onkeyup = function(press) {
                 console.log("Game Over");
                 break;
             }
+
+            moneyInvested = Math.floor(stockValue / initialStockValue * moneyInvested);
+
+            console.log("Invested Money");
+            console.log(moneyInvested);
         }
     }
-  }
+
+    if(space.keyCode == 73 && piggyBank > 0) {
+        moneyInvested += defaultInvest;
+        piggyBank -= defaultInvest;
+
+        console.log("Invest");
+        console.log(moneyInvested);
+        console.log("piggyBank");
+        console.log(piggyBank);
+    }
+
+    if(space.keyCode == 87 && moneyInvested > 0) {
+        moneyInvested -= defaultInvest;
+        piggyBank += defaultInvest;
+
+        console.log("Withdraw");
+        console.log(moneyInvested);
+        console.log("piggyBank");
+        console.log(piggyBank);
+    }
+}
 
 // Functions
 
@@ -72,7 +104,6 @@ function step() {
 }
 
 function calculateValue() {
-    stockValue = defaultStockAvg;
     console.log("Default Variance");
     
     variance = Math.floor(Math.random() * 100 * volatility)
@@ -88,11 +119,25 @@ function newAvg() {
     defaultStockAvg += Math.floor(Math.random() * 100) - 50
     console.log("Set Stock Value")
     console.log(defaultStockAvg);
+
+    stockValue = defaultStockAvg;
 }
 
 function pinch() {
     pinchType = Math.floor(Math.random() * 3);
     
+    if(stockValue < 1000) {
+        while(pinchType = 1) {
+            pinchType = Math.floor(Math.random() * 3);
+        }
+    }
+
+    if(stockValue > 4000) {
+        while(pinchType = 0) {
+            pinchType = Math.floor(Math.random() * 3);
+        }
+    }
+
     switch(pinchType) {
         case 0:
             console.log(upPinch)
@@ -118,12 +163,14 @@ function upDemo() {
     console.log(stockValue)
 
     while(stockValue < upperLimit) {
-        variance = Math.floor(Math.random() * 40 * volatility)
+        variance = Math.floor(Math.random() * 30 * volatility)
         stockValue = stockValue + variance;
 
         console.log(upperLimit)
         console.log(stockValue)
     }
+
+    // stockValue = upperLimit;
 }
 
 function downDemo() {
@@ -135,12 +182,14 @@ function downDemo() {
     console.log(stockValue)
 
     while(stockValue > lowerLimit) {
-        variance = Math.floor(Math.random() * 40 * volatility)
+        variance = Math.floor(Math.random() * 30 * volatility)
         stockValue = stockValue - variance;
 
         console.log(lowerLimit)
         console.log(stockValue)
     }
+
+    // stockValue = lowerLimit;
 }
 
 function middleDemo() {
@@ -148,11 +197,13 @@ function middleDemo() {
     lowerLimit = stockValue - Math.floor(Math.random() * 1000) - 500
 
     while(upperLimit > lowerLimit) {
-        variance = Math.floor(Math.random() * 30 * volatility)
+        variance = Math.floor(Math.random() * 20 * volatility)
         upperLimit = upperLimit - variance;
         lowerLimit = lowerLimit + variance;
 
         console.log(upperLimit)
         console.log(lowerLimit)
     }
+
+    stockValue = lowerLimit;
 }
